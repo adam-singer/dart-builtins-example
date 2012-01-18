@@ -5,7 +5,8 @@
 #import('echoCommand.dart', prefix:"echoLib");
 #import('processInfoCommand.dart', prefix:"processInfoLib");
 #import('socketCommand.dart', prefix:"socketLib");
-
+#import('timerCommand.dart', prefix:"timerLib");
+#import('lsCommand.dart', prefix:"lsLib");
 /** Build a new command map and return to the caller a 
   * [Map] of commands where the [Key] is the command name
   * and the [Value] is the commands function with the 
@@ -19,7 +20,9 @@ Map buildCommandMap() {
   m[processInfoLib.COMMANDNAME] = processInfoLib.COMMAND; 
   m[echoLib.COMMANDNAME] = echoLib.COMMAND; 
   m[socketLib.COMMANDNAME] = socketLib.COMMAND; 
-   
+  m[timerLib.COMMANDNAME] = timerLib.COMMAND; 
+  m[lsLib.COMMANDNAME] = lsLib.COMMAND;
+  
   m['help'] = ([var args]) {
     print("Available commands:");
     m.forEach((var k, var v) {
