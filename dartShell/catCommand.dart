@@ -8,7 +8,7 @@ COMMAND([var args]) {
   if (args is String) {
     List l = args.split(' ');
     if (l.length < 2) {
-      print("Error: cat [filename]");
+      print("Error: ${COMMANDNAME} [filename]");
       return;
     }
     
@@ -21,6 +21,7 @@ COMMAND([var args]) {
       return;
     }
     
+    
     RandomAccessFile r = f.openSync(FileMode.READ);
     int length = r.lengthSync();
     List<int> buffer = new List<int>(length);
@@ -28,5 +29,15 @@ COMMAND([var args]) {
     r.close();
     String s = new String.fromCharCodes(buffer);
     print(s);
+    
+    //StringInputStream stringInputStream = new StringInputStream(f.openInputStream());
+    //String s = stringInputStream.read();
+    //print(s);
+    
+    //String s = stringInputStream.readLine();
+    //while(s!=null) {
+    //  print(s);
+    //  s = stringInputStream.readLine();
+    //}
   }
 }
