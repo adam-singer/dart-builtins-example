@@ -8,6 +8,7 @@
 #import('timerCommand.dart', prefix:"timerLib");
 #import('lsCommand.dart', prefix:"lsLib");
 #import('catCommand.dart', prefix:"catLib");
+#import('binCommand.dart', prefix:"binLib");
 
 /** Build a new command map and return to the caller a 
   * [Map] of commands where the [Key] is the command name
@@ -25,6 +26,7 @@ Map buildCommandMap() {
   m[timerLib.COMMANDNAME] = timerLib.COMMAND; 
   m[lsLib.COMMANDNAME] = lsLib.COMMAND;
   m[catLib.COMMANDNAME] = catLib.COMMAND;
+  m[binLib.COMMANDNAME] = binLib.COMMAND;
   
   m['help'] = ([var args]) {
     print("Available commands:");
