@@ -1,59 +1,30 @@
 #library('CommandsLib');
 #import('dart:builtin');
-#source('SocketExample.dart');
+#import('exitCommand.dart', prefix:"exitLib");
+#import('platformInfoCommand.dart', prefix:"pinfoLib");
+#import('echoCommand.dart', prefix:"echoLib");
+#import('processInfoCommand.dart', prefix:"processInfoLib");
+#import('socketCommand.dart', prefix:"socketLib");
 
+/** Build a new command map and return to the caller a 
+  * [Map] of commands where the [Key] is the command name
+  * and the [Value] is the commands function with the 
+  * option to pass in arguments to the function.
+  */
 Map buildCommandMap() {
   Map m = new Map();
-  m["exit"] = ([var args]) {
-    exit(0);
-  };
-  
-  m["pinfo"] = ([var args]) {
-    Platform p = new Platform();
-    print('{"operatingSystem":${p.operatingSystem()},"numberOfProcessors":${p.numberOfProcessors()},"pathSeparator":${p.pathSeparator()}}');
-  };
-  
-  m["ps"] = ([var args]) {
-    void _readAll(InputStream input, StringBuffer output) {
-      while (input.available() != 0) {
-        output.add(new String.fromCharCodes(input.read()));
-      }
-    }
-    
-    void _psPrint() {
-      Process compiler = new Process.start('ps', []);
-      StringBuffer messages = new StringBuffer();
-      compiler.exitHandler = (int status) {
-        compiler.close();
-        //callback(status, messages.toString());
-        print(messages.toString());
-      };
 
-      compiler.stdout.dataHandler = () => _readAll(compiler.stdout, messages);
-      compiler.stderr.dataHandler = () => _readAll(compiler.stderr, messages);
-    }
-    
-    _psPrint();
-  };
-  
-  m['socketexample'] = ([var args]) => new SocketExample().go();
-
-  m['h'] = ([var args]) {
+  m[exitLib.COMMANDNAME] = exitLib.COMMAND;
+  m[pinfoLib.COMMANDNAME] = pinfoLib.COMMAND;
+  m[processInfoLib.COMMANDNAME] = processInfoLib.COMMAND; 
+  m[echoLib.COMMANDNAME] = echoLib.COMMAND; 
+  m[socketLib.COMMANDNAME] = socketLib.COMMAND; 
+   
+  m['help'] = ([var args]) {
     print("Available commands:");
     m.forEach((var k, var v) {
       print(" ${k}");
     });
-  };
-  
-  m['echo'] = ([var args]) {
-    if (args is String) {
-      List l = args.split(' ');
-      l.removeRange(0,1);
-      l.forEach((var s) {
-        stdout.write((s + ' ').charCodes());
-      });
-      stdout.write('\n'.charCodes());
-    }
   };
   
   return m;
